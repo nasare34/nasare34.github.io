@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akwasi Asare</title>
+    <style>
+        #publications {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.publication-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.publication-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.pub-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.pub-image img:hover {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.pub-content {
+    flex: 1;
+}
+
+.publication-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.publication-authors {
+    font-style: italic;
+    margin: 5px 0;
+}
+
+.publication-links a {
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #1a73e8;
+}
+
+.publication-links a:hover {
+    text-decoration: underline;
+}
+
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        
+        .publication-item {
+    position: relative; /* Needed for pseudo-element */
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff; /* base color */
+    overflow: hidden;
+}
+
+.publication-item::before {
+    content: "";
+    position: absolute;
+    top: 10px; /* adjust vertical position */
+    right: 10px; /* adjust horizontal position */
+    width: 60px; /* small image size */
+    height: 60px;
+    background-image: url('assets/publication-icon.png'); /* your small image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* faded so text is readable */
+    pointer-events: none; /* does not block clicks */
+    transition: transform 0.3s ease;
+}
+
+.publication-item:hover::before {
+    transform: scale(1.2) rotate(-5deg); /* subtle hover effect */
+}
+
+.pub-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.pub-image img:hover {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+        /* CSS Variables for theming */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9f9f9;
+            --bg-nav: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --accent-primary: #0066cc;
+            --accent-hover: #004d99;
+            --border-color: #dddddd;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.22);
+            --paper-bg: #eeeeee;
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #242424;
+            --bg-nav: #1f1f1f;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-light: #888888;
+            --accent-primary: #4a9eff;
+            --accent-hover: #66b3ff;
+            --border-color: #3a3a3a;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.5);
+            --paper-bg: #2a2a2a;
+        }
+        
+        body {font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text-primary); background: var(--bg-primary); transition: background-color 0.3s ease, color 0.3s ease;}
+
+        /* Navigation */
+        nav {display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; background: var(--bg-nav); box-shadow: var(--shadow-sm); position: fixed; width: 100%; top: 0; z-index: 1000; transition: background-color 0.3s ease;}
+        .logo {font-size: 1.5rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;}
+        .logo img {width: 32px; height: 32px; border-radius: 50%; object-fit: cover;}
+        .nav-links {display: flex; gap: 2.5rem; list-style: none; align-items: center;}
+        .nav-links a {text-decoration: none; color: var(--text-primary); font-size: 1.1rem; font-weight: 500; transition: color 0.3s;}
+        .nav-links a:hover {color: var(--accent-primary);}
+        
+        /* Dark mode toggle */
+        .theme-toggle {background: none; border: none; cursor: pointer; font-size: 1.3rem; padding: 0.5rem; display: flex; align-items: center; transition: opacity 0.3s ease; color: var(--text-primary);}
+        .theme-toggle:hover {opacity: 0.7;}
+        .theme-toggle svg {width: 20px; height: 20px; fill: currentColor;}
+
+        /* Hero */
+        .hero {background: linear-gradient(135deg, rgba(1, 31, 28, 0.95) 0%, rgba(0, 8, 29, 0.98) 100%), url('assets/background.webp') center/cover no-repeat; min-height: 100vh; display: flex; align-items: center; padding: 6rem 4rem 4rem; margin-top: 80px;}
+        .hero-content {position: relative; display: grid; grid-template-columns: 400px 1fr; gap: 6rem; max-width: 1400px; margin: 0 auto; width: 100%;}
+        .profile-section {text-align: center; color: white;}
+        .profile-image {width: 280px; height: 280px; border-radius: 50%; margin: 0 auto 2rem; overflow: hidden; background: #d3d3d3; border: 4px solid rgba(255,255,255,0.2);}
+        .profile-image img {width: 100%; height: 100%; object-fit: cover;}
+        .profile-name {font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;}
+        .profile-title {font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; color: #ccc;}
+        .profile-org {font-size: 1.2rem; margin-bottom: 2rem;}
+        .social-links {display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem;}
+        .social-links a {color: white; font-size: 1.8rem; transition: transform 0.3s; display: flex; align-items: center;}
+        .social-links a:hover {transform: scale(1.1);}
+        .social-links svg {width: 28px; height: 28px; fill: currentColor;}
+
+        .about-section {color: white;}
+        .about-section h1 {font-size: 3rem; margin-bottom: 2rem;}
+        .about-text {font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem; opacity: 0.95;}
+
+        /* News panel (embedded in hero) */
+        .news-panel {position: static; width: 100%; max-width: 100%; max-height: 240px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 8px 20px rgba(0,0,0,0.22); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; padding: 1rem; color: #fff; overflow: hidden; z-index: 5; margin-top: 2rem; text-align: left;}
+        .news-header {display: flex; align-items: center; justify-content: flex-start; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);}
+        .news-title {font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; opacity: 1; text-transform: uppercase;}
+        .news-body {max-height: 160px; overflow-y: auto; padding-right: 5px;}
+        .news-list {list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin: 0;}
+        .news-item {font-size: 0.85rem; line-height: 1.4; opacity: 0.9;}
+        
+        /* Custom scrollbar for news */
+        .news-body::-webkit-scrollbar {width: 4px;}
+        .news-body::-webkit-scrollbar-track {background: rgba(255,255,255,0.05);}
+        .news-body::-webkit-scrollbar-thumb {background: rgba(255,255,255,0.3); border-radius: 2px;}
+
+        /* Info grid */
+        .info-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;}
+        .info-section h2 {font-size: 1.8rem; margin-bottom: 1.5rem; color: #fff; border-bottom: 2px solid var(--accent-primary); display: inline-block; padding-bottom: 5px;}
+        .info-section ul {list-style-position: inside; margin-left: 0.5rem;}
+        .info-section li {font-size: 1.1rem; margin-bottom: 0.8rem; opacity: 0.9;}
+
+        /* Education & Experience Items */
+        .timeline-item {margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--accent-primary);}
+        .timeline-item h3 {font-size: 1.2rem; margin-bottom: 0.2rem; font-weight: 600;}
+        .timeline-item small {display: block; font-size: 0.9rem; opacity: 0.7; margin-bottom: 0.4rem; font-style: italic;}
+        .timeline-item p {font-size: 1rem; opacity: 0.9;}
+
+        /* Experience List (Toufiq Style) */
+        .experience-list {margin-top: 1.5rem;}
+        .experience-item {display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem;}
+        .experience-logo {width: 50px; height: 50px; border-radius: 8px; object-fit: contain; background: #fff;}
+        .experience-info h3 {font-size: 1.1rem; font-weight: 600; margin-bottom: 0.2rem; color: #fff;}
+        .experience-info p {font-size: 0.95rem; opacity: 0.9; color: #ddd;}
+        .experience-info a {color: #fff; text-decoration: underline;}
+
+        /* Skills Chips */
+        .skills-container {display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;}
+        .skill-chip {background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem; color: #eee;}
+
+        /* Section Styling */
+        section {padding: 6rem 4rem; max-width: 1200px; margin: auto;}
+        section h2.section-title {font-size: 2.2rem; margin-bottom: 3rem; color: var(--accent-primary); text-align: center; position: relative;}
+        
+        /* Papers/Publications */
+        #publications {background: var(--bg-primary);}
+        .pub-item {margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-color); display: flex; gap: 1.5rem;}
+        .pub-item:last-child {border-bottom: none;}
+        .pub-content h3 {font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text-primary); line-height: 1.4;}
+        .pub-content p {font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.5rem;}
+        .pub-links a {font-size: 0.9rem; color: var(--accent-primary); text-decoration: none; margin-right: 1rem; font-weight: 500;}
+        .pub-links a:hover {text-decoration: underline;}
+        
+        /* Talks & Tutorials Grid */
+        #talks {background: var(--bg-secondary);}
+        .talks-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;}
+        .talks-column {display: flex; flex-direction: column; gap: 1.5rem;}
+        .column-title {font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-primary); border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;}
+        
+        .talk-item {display: flex; gap: 1.5rem; align-items: center; background: var(--bg-primary); padding: 1rem; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
+        .talk-image-placeholder {width: 130px; height: 100px; flex-shrink: 0; background: #ddd; border-radius: 6px; overflow: hidden;}
+        .talk-image-placeholder img {width: 100%; height: 100%; object-fit: cover;}
+        
+        .talk-details h3 {font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--text-primary); line-height: 1.3;}
+        .talk-details p {font-size: 0.9rem; color: var(--text-secondary);}
+
+        /* Projects */
+        #projects {background: var(--bg-primary);}
+        .project-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;}
+        .project-card {background: var(--bg-secondary); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;}
+        .project-content {padding: 1.5rem; flex-grow: 1;}
+        .project-content h3 {font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--text-primary);}
+        .project-content p {font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;}
+        .project-tags {display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto;}
+        .project-tag {font-size: 0.8rem; background: var(--bg-primary); color: var(--text-secondary); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--border-color);}
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav {padding: 1.5rem 2rem;}
+            .hero {padding: 6rem 2rem 4rem;}
+            .hero-content {grid-template-columns: 1fr; text-align: center;}
+            .profile-image {margin: 0 auto 2rem;}
+            .info-grid {grid-template-columns: 1fr; text-align: left;}
+            .nav-links {display: none;} /* Ideally add a mobile menu here */
+            .talks-grid {grid-template-columns: 1fr;}
+            section {padding: 4rem 2rem;}
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <!-- Placeholder for logo or initials -->
+            <div style="width:32px; height:32px; background:var(--accent-primary); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:14px;">AA</div>
+            &nbsp; Akwasi Asare
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#talks">Talks</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="profile-section"> 
+                <!-- Replace 'assets/akwasi.jpg' with your actual image path -->
+                <div class="profile-image"><img src="assets/AkwasiAsare.jpeg" alt="Akwasi Asare" onerror="this.src='https://via.placeholder.com/280?text=Akwasi+Asare'"></div>
+                <div class="profile-name">Akwasi Asare</div>
+                <div class="profile-title">AI Research Engineer | Software Engineer</div>
+                <div class="profile-org">Khaya AI | GhanaNLP | Bagci Lab, Northwestern Univ.</div>
+                
+                <div class="social-links">
+                    <a href="mailto:nasare34@yahoo.com" title="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+                    <a href="https://linkedin.com/in/nana-akwasi-asare-1301481b0" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                    <a href="https://github.com/nasare34" target="_blank" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+                    <a href="https://www.researchgate.net/profile/Akwasi-Asare" target="_blank" title="ResearchGate" style="font-weight:bold; font-size:1.2rem;">RG</a>
+                </div>
+
+                <div class="news-panel">
+                    <div class="news-header">
+                        <div class="news-title">Latest Updates</div>
+                    </div>
+                    <div class="news-body">
+                        <ul class="news-list">
+                            <li class="news-item">New Publication Alert 🗣📢: <strong>Enhanced Ensemble Model-Based Approach from Deep Learning for MonkeyPox Detection Using Medical Images</strong>  published in <strong>AI Revolution: Research, Ethics and Society (AIR-RES 2025)</strong>, 
+  CCIS, Volume 2723, Springer. First online on <strong>10 January 2026</strong>, pp. 166–189.</li>
+  <li class="news-item">New Publication Alert 🗣📢: <strong>A Hybrid Three-Layer Convolutional Neural Network Architecture for Detecting Anemia Using Clinical Images
+</strong>  published in <strong>AI Revolution: Research, Ethics and Society (AIR-RES 2025)</strong>, 
+  CCIS, Volume 2723, Springer. First online on <strong>10 January 2026</strong>, pp. 166–189.</li>
+                            <li class="news-item">Currently a <strong>Research Trainee</strong> at Bagci Lab, Northwestern University.</li>
+                            <li class="news-item">Attended the <strong>PRIMED-AI Workshop</strong> at NIH (2025) on precision medicine AI.</li>
+                            <li class="news-item">Participated in <strong>Compute Ontario Summer School</strong> (June 2025).</li>
+                            <li class="news-item">Presented on AI for Breast Cancer Detection and Prevention at <strong>Green Earth for HUMANITY 2025</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h1>About Me</h1>
+                <p class="about-text">
+                    I am an AI Research Engineer with a focus on deep learning, computer vision, and NLP for healthcare applications and Low-resource Languages. My work spans AI-powered medical imaging systems, multilingual clinical NLP models, and the deployment of reliable, scalable AI solutions. I bring experience in end-to-end development using tools such as PyTorch, TensorFlow, Flask, and MLOps pipelines on cloud platforms.
+                </p>
+
+                <div class="info-grid">
+                    <div class="info-section">
+                        <h2>Research Interests</h2>
+                        <ul>
+                            <li>Computer Vision</li>
+                            <li>Medical Image Analysis</li>
+                            <li>NLP for Healthcare</li>
+                            <li>Low-resource Languages</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h2>Education</h2>
+                        <div class="timeline-item">
+                            <h3>B.Sc. Software Engineering</h3>
+                            <small>Jan 2021 - Nov 2024</small>
+                            <p>Ghana Communication Technology University</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Associate of Science in Health Sciences</h3>
+                            <small>Sept 2020 - Apr 2024</small>
+                            <p>University of the People,USA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience moved here -->
+                <div class="info-section" style="margin-top: 3rem;">
+                    <h2>Experience</h2>
+                    <div class="experience-list">
+                        <div class="experience-item">
+                            <!-- Placeholder logo, replace with actual asset -->
+                            <img src="assets/khayaai.jpg" alt="GhanaNLP" class="experience-logo" onerror="this.src='https://via.placeholder.com/50?text=NLP'">
+                            <div class="experience-info">
+                                <h3>AI Researcher Engineer</h3>
+                                <p>Khaya AI Company • Sept 2025 - Present</p>
+                            </div>
+                        </div>
+                        <div class="experience-item">
+                            <!-- Placeholder logo, replace with actual asset -->
+                            <img src="assets/ghananlp.png" alt="GhanaNLP" class="experience-logo" onerror="this.src='https://via.placeholder.com/50?text=NLP'">
+                            <div class="experience-info">
+                                <h3>Machine Learning Researcher </h3>
+                                <p>GhanaNLP • Sept 2024 - Present</p>
+                            </div>
+                        </div>
+                        <div class="experience-item">
+                            <!-- Placeholder logo, replace with actual asset -->
+                            <img src="assets/northwestern.png" alt="Northwestern" class="experience-logo" onerror="this.src='https://via.placeholder.com/50?text=NU'">
+                            <div class="experience-info">
+                                <h3> AI Research Assistant</h3>
+                                <p>Machine and Hybrid Intelligence Lab (Bagci Lab), Northwestern University • May 2025 - Present</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section id="publications">
+    <h2 class="section-title">Selected Publications</h2>
+
+    <!-- 1. Performance Evaluation -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/performance_eval.png" alt="Performance Evaluation Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                Performance of Resnet-18 and InceptionResnetv2 in Automated Detection of Diabetic Retinopathy
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Alvin Adjei Broni, Alex Kwasi Asare Dickson, Mary Sagoe, Joshua Makafui Cudjoe</em>.  
+                Health Informatics Journal, (2025), 3(3): 231-241.
+            </p>
+            <p class="publication-links">
+                <a href="https://doi.org/10.1002/med4.70023" target="_blank">[Medicine Advances Journal]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 2. Rabies -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/rabies.png" alt="Rabies Prediction Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                Machine Learning-Based Prediction of Rabies Outbreaks Using Epidemiological and Environmental Data in Africa
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Justice Williams Asare, Seth Alornyo, Emmanuel Akwah Kyei, Emmanuel Freeman, William Leslie Brown-Acquaye, Martin Mabeifam Ujakpa, Israel Edem Agbehadji, Richard C Millham</em>.  
+                International Conference on Computational Science and Computational Intelligence, Springer Nature Switzerland, (2024), pp. 153-167.
+            </p>
+            <p class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-031-90341-0_12" target="_blank">[SPRINGER]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 3. Monkeypox -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/monkeypox.png" alt="Monkeypox Detection Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                Enhanced Ensemble Model-Based Approach for Monkeypox Detection Using Medical Images
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Asare Justice Williams, Ujakpa Martin Mabeifam, Kyei Emmanuel Akwah, Mutasa Laizah Sashah, Freema Emmanuel, Brown-Acquaye William Leslie, Lempogo Forgor</em>.  
+                AI Revolution: Research, Ethics and Society (AIR-RES), Springer CCIS, (2025).
+            </p>
+            <p class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-032-13056-3_14" target="_blank">[SPRINGER]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 4. Anemia -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/anemia.png" alt="Anemia Detection Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                A Hybrid Three-Layer Convolutional Neural Network Architecture for Detecting Anemia in Children Using Palpebral Conjunctiva Images
+            </p>
+            <p class="publication-authors">
+                <em>Justice Williams Asare, Akwasi Asare, Martin Mabeifam Ujakpa, Emmanuel Akwah Kyei, Laizah Sashah Mutasa, William Leslie Brown-Acquaye, Forgor Lempogo, Alfred Coleman</em>.  
+                AI Revolution: Research, Ethics and Society (AIR-RES), Springer CCIS, (2025), pp. 144-156.
+            </p>
+            <p class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-032-13056-3_12" target="_blank">[SPRINGER]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 5. Polyp -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/polyp.png" alt="Polyp Segmentation Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                Improved Segmentation of Polyps and Visual Explainability Analysis
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Thanh-Huy Nguyen, Ulas Bagci</em>.  
+                arXiv preprint, (2025), arXiv:2509.18159.
+            </p>
+            <p class="publication-links">
+                <a href="https://arxiv.org/abs/2509.18159" target="_blank">[arXiv]</a>
+                <a href="https://arxiv.org/pdf/2509.18159.pdf" target="_blank">[ACCEPTED AT ACDSA IEEE CONFERENCE]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 7. Deploying DR on Edge -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/footulcer.png" alt="TransUNet-GradCAM">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                TransUNet-GradCAM: A Hybrid Transformer-U-Net with Self-Attention and Explainable Visualizations for Foot Ulcer Segmentation
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Mary Sagoe, Justice Williams Asare, Stephen Edward Moore.
+arXiv preprint arXiv:2508.03758, 2025.
+            </p>
+            <p class="publication-links">
+                <a href="https://doi.org/10.48550/arXiv.2508.03758" target="_blank">[arXiv]</a>
+                <a href="https://doi.org/10.48550/arXiv.2508.03758" target="_blank">[PDF]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 6. PerceptronCARE -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/perceptroncare.png" alt="PerceptronCARE Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                PerceptronCARE: A Deep Learning-Based Intelligent Teleophthalmology Application for Diabetic Retinopathy Diagnosis
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Isaac Baffour Senkyire, Emmanuel Freeman, Mary Sagoe, Simon Hilary Ayinedenaba Aluze-Ele, Kelvin Kwao</em>.  
+                arXiv preprint, (2025), arXiv:2509.18160.
+            </p>
+            <p class="publication-links">
+                <a href="https://arxiv.org/abs/2509.18160" target="_blank">[arXiv]</a>
+                <a href="https://arxiv.org/pdf/2509.18160.pdf" target="_blank">[PDF]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 7. Deploying DR on Edge -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/edge_dr.png" alt="Deploying DR on Edge Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                Deploying and Evaluating Multiple Deep Learning Models on Edge Devices for Diabetic Retinopathy Detection
+            </p>
+            <p class="publication-authors">
+                <em>Akwasi Asare, Dennis Agyemanh Nana Gookyi, Derrick Boateng, Fortunatus Aabangbio Wulnye</em>.  
+                arXiv preprint, (2025), arXiv:2506.14834.
+            </p>
+            <p class="publication-links">
+                <a href="https://arxiv.org/abs/2506.14834" target="_blank">[arXiv]</a>
+                <a href="https://arxiv.org/pdf/2506.14834.pdf" target="_blank">[PDF]</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 8. Ndwom -->
+    <div class="publication-item">
+        <div class="pub-image">
+            <img src="assets/ndwom.png" alt="Ndwom Dataset Paper">
+        </div>
+        <div class="pub-content">
+            <p class="publication-title">
+                Ndwom: A Multimodal Music Information Retrieval Dataset for Akan Musical Videos
+            </p>
+            <p class="publication-authors">
+                <em>Stephen Edward Moore, Nana Akwasi Asare, Samuel Kwadwo Kubiti</em>.  
+                Research Square preprint, (2024).
+            </p>
+            <p class="publication-links">
+                <a href="https://doi.org/10.21203/rs.3.rs-5876078/v1" target="_blank">[DOI]</a>
+            </p>
+        </div>
+    </div>
+
+</section>
+
+    <section id="talks">
+        <h2 class="section-title"> Talks, Blogs & Tutorials</h2>
+        <div class="talks-grid">
+            <!-- Talks Column -->
+            <div class="talks-column">
+                <h3 class="column-title">Talks and Blogs</h3>
+                
+                <div class="talk-item">
+                    <div class="talk-image-placeholder">
+                         <!-- Placeholder -->
+                         <img src="assets/cmac.jpg" onerror="this.src='https://via.placeholder.com/150?text=BrainHack'" alt="Africa-BraTS">
+                    </div>
+                    <div class="talk-details">
+                        <h3>Facilitator: Data Science for Medical Imaging & Agro Computing</h3>
+                        <p>Lead speaker at the  Center for Medical and Agro Computing (CMAC) Mentorship program, Koforidua Technical University, 2025</p>
+                    </div>
+                </div>
+
+                <div class="talk-item">
+                    <div class="talk-image-placeholder">
+                         <img src="assets/csci.jpg" onerror="this.src='https://via.placeholder.com/150?text=CSCI'" alt="CSCI 2024">
+                    </div>
+                    <div class="talk-details">
+                        <h3> Presentation on Rabies Outbreak Prediction using Machine Learning</h3>
+                        <p>International Conference on Computational Science and Computational Intelligence (CSCI), Las Vegas, 2024</p>
+                    </div>
+                </div>
+                <div class="talk-item">
+                    <div class="talk-image-placeholder">
+                         <!-- Placeholder -->
+                         <img src="assets/medium.png" onerror="this.src='https://via.placeholder.com/150?text=BrainHack'" alt="Africa-BraTS">
+                    </div>
+                    <div class="talk-details">
+                        <h3>MEDIUM POST BLOG: Bridging the Gap-Unraveling the Challenges that Keep Africa from the AI and Machine Learning Revolution</h3>
+                        <p>The Unfolding Puzzle: Why Africa Lags Behind in the AI Revolution? While the world leaps headfirst into the transformative embrace of artificial intelligence (AI) and machine learning (ML), Africa finds itself standing at the threshold, with the door only partially ajar. This discrepancy sparks a crucial question: why is a continent brimming with potential lagging behind in this transformative technological wave? While the answer cannot be reduced to a singular factor, a confluence of challenges contributes to this complex lag.</p>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Tutorials Column -->
+            <div class="talks-column">
+                <h3 class="column-title">Tutorials & Workshops</h3>
+                
+                <div class="talk-item">
+                    <div class="talk-image-placeholder">
+                        <img src="assets/Breastai.jpeg" onerror="this.src='https://via.placeholder.com/150?text=CMAC'" alt="CMAC Tutorial">
+                    </div>
+                    <div class="talk-details">
+                        <h3>Climate Change, Breast Cancer & AI : Intersections, Impacts, and Solutions,</h3>
+                        <p> Honored to speak at this webinar on AI for breast cancer detection and prevention, and the growing role of climate-health AI in advancing equitable healthcare solutions. Grateful to GE4H for the platform and the insightful discussions. October-2025</p>
+                    </div>
+                </div>
+                <div class="talk-item">
+                    <div class="talk-image-placeholder">
+                        <img src="assets/heritor.png" onerror="this.src='https://via.placeholder.com/150?text=CMAC'" alt="CMAC Tutorial">
+                    </div>
+                    <div class="talk-details">
+                        <h3>AI Practitioners’ Guide Development for Ghana Invitation and Participation</h3>
+                        <p> Honored to be invited to participate in developing the AI Practitioners' Guide for Ghana, focusing on ethical and legal considerations for AI in Ghana's ecosystem.The Ghana AI Practitioners’ Guide is an initiative spearheaded by the Federal Ministry for Economic Cooperation and Development (BMZ) and implemented by Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH under the FAIR Forward – Artificial Intelligence for All program. Heritors Labs has been engaged to oversee the development of this guide, which aims to provide practical, stakeholder-driven guidelines tailored to Ghana’s AI ecosystem.. June-2025</p>
+                    </div>
+                </div>
+                
+                 <div class="talk-item">
+                    <div class="talk-image-placeholder">
+                        <img src="assets/spark.jpeg" onerror="this.src='https://via.placeholder.com/150?text=GCTU'" alt="GCTU Teaching">
+                    </div>
+                    <div class="talk-details">
+                        <h3> SPARK (Sprint AI Training for African Medical Imaging Knowledge Translation) Academy</h3>
+                        <p>I’ve recently completed the 2024 SPARK (Sprint AI Training for African Medical Imaging Knowledge Translation) Academy, where I focused on brain tumor segmentation and deepened my understanding of AI, medical imaging, and deep learning . This program, offered by the Consortium for Advancement of MRI Education and Research in Africa (CAMERA), has been an incredible experience, equipping me with the skills to contribute to the future of healthcare innovation, particularly for medical imaging in Africa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Ongoing Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Wearable and Edge Device for Diabetes Intervention</h3>
+                    <p>AI-Powered Diabetic Detection System. A device for Diabetic Detection and Monitoring.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Deep Learning</span>
+                        <span class="project-tag">Teleophthalmology</span>
+                        <span class="project-tag">Mobile Health</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>MICCAI STSR 2025:Semi-supervised Teeth and Plup Root Canal Segmentation in 3D CBCT Scans.  </h3>
+                    <p>Rationale: Precise segmentation of the root pulp canal allows for a clearer visualization of its morphology, branches, and curvatures, facilitating the development of more refined filling strategies. However, the annotation of tooth root pulp canal regions in CBCT images is inherently labor-intensive, requiring a substantial investment of time and human resources.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Medical Segmentation</span>
+                        <span class="project-tag">3D CBCT Images</span>
+                        <span class="project-tag"> UuNeT Attention Mechanism</span>
+                    </div>
+                </div>
+            </div>
+             <div class="project-card">
+                <div class="project-content">
+                    <h3>Pancrease CT Segmenatation   </h3>
+                    <p>Enhanced HaD-Net for Pancreas-CT-SEG: 2D Sliced Dataset for Pancreas Segmentation.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Medical Segmentation</span>
+                        <span class="project-tag">2D CBCT Images</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>EyeGPT- Diabetic Retinopathy</h3>
+                    <p>EyeGPT — an LLM-based AI system for Diabetic Retinopathy (DR) detection, combining vision models and language intelligence to support early screening, clinical decision support, and accessible eye care in resource-constrained settings.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Vision language</span>
+                        <span class="project-tag">Medical Imaging computing</span>
+                        <span class="project-tag">DR Data</span>
+                        <span class="project-tag">Deployment</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Multimodal Akan Music Rec.</h3>
+                    <p>Development of the Ndwom dataset and sentiment-aware music recommendation systems integrating audio and lyrical metadata.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Music IR</span>
+                        <span class="project-tag">Multimodal</span>
+                        <span class="project-tag">Dataset Creation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const moonIcon = document.getElementById('moon-icon');
+        const sunIcon = document.getElementById('sun-icon');
+        const htmlElement = document.documentElement;
+        
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        
+        if (currentTheme === 'dark') {
+            moonIcon.style.display = 'none';
+            sunIcon.style.display = 'block';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            } else {
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
