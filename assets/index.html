@@ -339,7 +339,7 @@
 
         .pub-card {
             display: grid;
-            grid-template-columns: 4rem 120px 1fr auto;
+            grid-template-columns: 4rem 1fr auto;
             gap: 1.5rem;
             align-items: start;
             padding: 1.8rem 0;
@@ -363,21 +363,6 @@
         .pub-card:hover::before { opacity: 1; }
 
         .pub-card:first-child { border-top: 1px solid var(--border); }
-
-        .pub-thumb {
-            width: 120px;
-            height: 120px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 1px solid var(--border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: block;
-        }
-
-        .pub-card:hover .pub-thumb {
-            transform: scale(1.04) rotate(-1deg);
-            box-shadow: var(--shadow-lg);
-        }
 
         .pub-num {
             font-family: 'Space Grotesk', sans-serif;
@@ -726,7 +711,6 @@
             section { padding: 4rem 1.5rem; }
             .talks-columns { grid-template-columns: 1fr; gap: 3rem; }
             .pub-card { grid-template-columns: 3rem 1fr; }
-            .pub-thumb { display: none; }
             .pub-year { display: none; }
         }
 
@@ -914,7 +898,6 @@
                 <!-- 1. Performance Evaluation DR — Medicine Advances -->
                 <div class="pub-card reveal">
                     <div class="pub-num">01</div>
-                    <img src="assets/performance_eval.png" alt="Performance Evaluation DR" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Performance of ResNet-18 and InceptionResNetV2 in Automated Detection of Diabetic Retinopathy <span class="preprint-tag tag-published">Medicine Advances</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Alvin Adjei Broni, Alex Kwasi Asare Dickson, Mary Sagoe, Joshua Makafui Cudjoe</p>
@@ -930,7 +913,6 @@
                 <!-- 2. Polyp — IEEE ACDSA 2026 -->
                 <div class="pub-card reveal">
                     <div class="pub-num">02</div>
-                    <img src="assets/polyp.png" alt="Polyp Segmentation" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Improved Segmentation of Polyps and Visual Explainability Analysis <span class="preprint-tag tag-ieee">IEEE ACDSA 2026</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Thanh-Huy Nguyen, Ulas Bagci</p>
@@ -947,7 +929,6 @@
                 <!-- 3. Monkeypox — Springer CCIS -->
                 <div class="pub-card reveal">
                     <div class="pub-num">03</div>
-                    <img src="assets/monkeypox.png" alt="Monkeypox Detection" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Enhanced Ensemble Model-Based Approach for Monkeypox Detection Using Medical Images <span class="preprint-tag tag-published">Springer CCIS</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Justice Williams Asare, Martin Mabeifam Ujakpa, Emmanuel Akwah Kyei, Laizah Sashah Mutasa, Emmanuel Freeman, William Leslie Brown-Acquaye, Forgor Lempogo</p>
@@ -963,7 +944,6 @@
                 <!-- 4. Anemia — Springer CCIS -->
                 <div class="pub-card reveal">
                     <div class="pub-num">04</div>
-                    <img src="assets/anemia.png" alt="Anemia Detection" class="pub-thumb">
                     <div class="pub-body">
                         <h3>A Hybrid Three-Layer CNN Architecture for Detecting Anemia in Children Using Palpebral Conjunctiva Images <span class="preprint-tag tag-published">Springer CCIS</span></h3>
                         <p class="pub-authors">Justice Williams Asare, <strong>Akwasi Asare</strong>, Martin Mabeifam Ujakpa, Emmanuel Akwah Kyei, Laizah Sashah Mutasa, William Leslie Brown-Acquaye, Forgor Lempogo, Alfred Coleman</p>
@@ -979,7 +959,6 @@
                 <!-- 5. Rabies — Springer -->
                 <div class="pub-card reveal">
                     <div class="pub-num">05</div>
-                    <img src="assets/rabies.png" alt="Rabies Outbreak Prediction" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Machine Learning-Based Prediction of Rabies Outbreaks Using Epidemiological and Environmental Data in Africa <span class="preprint-tag tag-published">Springer</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Justice Williams Asare, Seth Alornyo, Emmanuel Akwah Kyei, Emmanuel Freeman, William Leslie Brown-Acquaye, Martin Mabeifam Ujakpa, Israel Edem Agbehadji, Richard C. Millham</p>
@@ -997,7 +976,6 @@
                 <!-- 6. Nsanku -->
                 <div class="pub-card reveal">
                     <div class="pub-num">06</div>
-                    <img src="assets/nsanku.png" alt="Nsanku LLM Translation" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Nsanku: Evaluating Zero-Shot Translation Performance of LLMs for Ghanaian Languages <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors">Stephen E. Moore, Mich-Seth Owusu, <strong>Akwasi Asare</strong>, Lawrence Adu Gyamfi, Paul Azunre, Joel Budu, Jonathan Asiamah, Elias Dzobo, Kelvin Newman, Edmund O. Benefo, Gerhardt Datsomor, Onesimus Addo Appiah, Ama Branoa Banful, Lucas Woedem Kpatah, Saani Mustapha Deishini, John Ayernor</p>
@@ -1013,7 +991,6 @@
                 <!-- 7. Ayoo -->
                 <div class="pub-card reveal">
                     <div class="pub-num">07</div>
-                    <img src="assets/ayoo.png" alt="Ayoo Music Dataset" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Ayoo: A Multilingual Multimodal Music Information Retrieval Dataset for Ghana Music Award Videos <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors">Stephen E. Moore, <strong>Akwasi Asare</strong>, Samuel Kwadwo Kubiti</p>
@@ -1029,7 +1006,6 @@
                 <!-- 8. GhanaNLP Parallel Corpora -->
                 <div class="pub-card reveal">
                     <div class="pub-num">08</div>
-                    <img src="assets/ghananlp1.png" alt="GhanaNLP Parallel Corpora" class="pub-thumb">
                     <div class="pub-body">
                         <h3>GhanaNLP Parallel Corpora: Comprehensive Multilingual Resources for Low-Resource Ghanaian Languages <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors">Lawrence Adu Gyamfi, Paul Azunre, Stephen Edward Moore, Joel Budu, <strong>Akwasi Asare</strong>, Mich-Seth Owusu, Jonathan Ofori Asiamah</p>
@@ -1045,7 +1021,6 @@
                 <!-- 9. TransUNet-GradCAM Foot Ulcer -->
                 <div class="pub-card reveal">
                     <div class="pub-num">09</div>
-                    <img src="assets/footulcer.png" alt="TransUNet-GradCAM Foot Ulcer" class="pub-thumb">
                     <div class="pub-body">
                         <h3>TransUNet-GradCAM: A Hybrid Transformer-U-Net with Self-Attention and Explainable Visualizations for Foot Ulcer Segmentation <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Mary Sagoe, Justice Williams Asare, Stephen Edward Moore</p>
@@ -1061,7 +1036,6 @@
                 <!-- 10. PerceptronCARE -->
                 <div class="pub-card reveal">
                     <div class="pub-num">10</div>
-                    <img src="assets/perceptroncare.png" alt="PerceptronCARE" class="pub-thumb">
                     <div class="pub-body">
                         <h3>PerceptronCARE: A Deep Learning-Based Intelligent Teleophthalmology Application for Diabetic Retinopathy Diagnosis <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Isaac Baffour Senkyire, Emmanuel Freeman, Mary Sagoe, Simon Hilary Ayinedenaba Aluze-Ele, Kelvin Kwao</p>
@@ -1078,7 +1052,6 @@
                 <!-- 11. Edge DR -->
                 <div class="pub-card reveal">
                     <div class="pub-num">11</div>
-                    <img src="assets/edge_dr.png" alt="Edge DR Deployment" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Deploying and Evaluating Multiple Deep Learning Models on Edge Devices for Diabetic Retinopathy Detection <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors"><strong>Akwasi Asare</strong>, Dennis Agyemanh Nana Gookyi, Derrick Boateng, Fortunatus Aabangbio Wulnye</p>
@@ -1095,7 +1068,6 @@
                 <!-- 12. Ndwom -->
                 <div class="pub-card reveal">
                     <div class="pub-num">12</div>
-                    <img src="assets/ndwom.png" alt="Ndwom Music Dataset" class="pub-thumb">
                     <div class="pub-body">
                         <h3>Ndwom: A Multimodal Music Information Retrieval Dataset for Akan Musical Videos <span class="preprint-tag tag-preprint">Preprint</span></h3>
                         <p class="pub-authors">Stephen Edward Moore, Nana <strong>Akwasi Asare</strong>, Samuel Kwadwo Kubiti</p>
